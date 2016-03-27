@@ -54,9 +54,11 @@
         if (data.RedirectLink == "") {
             data.RedirectLink = $container.data("base-href") + "#" + data.id;
         }
-        if ($('#recipient-email').val() == data.FromId && !document.hidden) {
+        if ($('#recipient-email').val() == data.FromId) {
             document.renderMessage('#recipient-message-template', data.OriginText);
-            return;
+            if (!document.hidden) {
+                return;
+            }
         }
 
         var template = $('#notification-template').clone();
