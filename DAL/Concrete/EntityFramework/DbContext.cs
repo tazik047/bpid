@@ -17,7 +17,7 @@ namespace DAL.Concrete.EntityFramework
         }
 
         public DbContext()
-            :base ("conString")
+            :base ("defaultConnection")
         {
         }
 
