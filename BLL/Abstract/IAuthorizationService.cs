@@ -8,7 +8,7 @@ namespace BLL.Abstract
 {
     public interface IAuthorizationService
     {
-        bool Login(string code, string pathToFolder);
+        bool Login(string code, string pathToFolder, string redirectUrl);
 
         void Logout();
     }

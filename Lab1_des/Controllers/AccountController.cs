@@ -27,7 +27,7 @@ namespace Lab1_des.Controllers
 
         public ActionResult LoginByGoogle(string code)
         {
-            if (_authorizationService.Login(code, Server.MapPath("~/Content/assets/img")))
+            if (_authorizationService.Login(code, Server.MapPath("~/Content/assets/img"), GetGoogleOauthData().RedirectUrl))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -47,7 +47,7 @@ namespace Lab1_des.Controllers
         {
             return new GoogleOauthViewModel
             {
-                RedirectUrl = ConfigurationManager.AppSettings["RedirectUrl"],
+                RedirectUrl = Url.Action("LoginByGoogle", "Account", null, Request.Url.Scheme),
                 ClientId = "370393427927-eqv21p3qosqkp1uqgjlattejsf1p9b43.apps.googleusercontent.com"
             };
         }

@@ -30,7 +30,6 @@ namespace BLL.Concrete
         private const string GetTokenAddress = "https://www.googleapis.com/oauth2/v4/token";
         private const string ClientId = "370393427927-eqv21p3qosqkp1uqgjlattejsf1p9b43.apps.googleusercontent.com";
         private const string ClientSecret = "n08erjuIFo1RpidmvO0YpbQF";
-        private readonly string _redirectUrl = ConfigurationManager.AppSettings["RedirectUrl"];
         
         #endregion
         
@@ -41,9 +40,9 @@ namespace BLL.Concrete
             _userService = userService;
         }
 
-        public bool Login(string code, string pathToFolder)
+        public bool Login(string code, string pathToFolder, string redirectUrl)
         {
-            var user = AuthorizeInGoogle(code, pathToFolder);
+            var user = AuthorizeInGoogle(code, pathToFolder, redirectUrl);
             if (user == null)
             {
                 return false;
@@ -69,7 +68,7 @@ namespace BLL.Concrete
             HttpContext.Current.Response.Cookies[Cookie].Value = string.Empty;
         }
 
-        private User AuthorizeInGoogle(string code, string pathToFolder)
+        private User AuthorizeInGoogle(string code, string pathToFolder, string redirectUrl)
         {
             using (var client = new HttpClient())
             {
@@ -78,7 +77,7 @@ namespace BLL.Concrete
                     new FormUrlEncodedContent(new[]
                     {
                         new KeyValuePair<string, string>("client_id", ClientId),
-                        new KeyValuePair<string, string>("redirect_uri", _redirectUrl),
+                        new KeyValuePair<string, string>("redirect_uri", redirectUrl),
                         new KeyValuePair<string, string>("client_secret", ClientSecret),
                         new KeyValuePair<string, string>("code", code),
                         new KeyValuePair<string, string>("grant_type", "authorization_code"),

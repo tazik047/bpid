@@ -187,3 +187,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Lab1_des/Properties/PublishProfiles/security-chat.pubxml
+/.vs/config/applicationhost.config
