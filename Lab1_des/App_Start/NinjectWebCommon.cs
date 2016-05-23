@@ -76,6 +76,7 @@ namespace Lab1_des.App_Start
             kernel.Bind<IPushNotificationService>().To<PushNotificationService>();
             kernel.Bind<IMessageService>().To<MessageService>();
             kernel.Bind<IAuthorizationService>().To<AuthorizationService>();
+            kernel.Bind<IKeyService>().To<KeyService>();
         }        
     }
 }

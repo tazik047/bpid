@@ -19,9 +19,24 @@ namespace Lab1_des
                 defaults: new { controller = "Home", action = "CurrentUserPhoto" });
 
             routes.MapRoute(
+                name: "KeyChat",
+                url: "{id}/simplekeychat",
+                defaults: new { controller = "Home", action = "KeyChat" });
+
+            routes.MapRoute(
+                name: "RsaChat",
+                url: "{id}/rsachat",
+                defaults: new { controller = "Home", action = "RsaChat" });
+
+            routes.MapRoute(
+                name: "DiffyChat",
+                url: "{id}/Diffychat",
+                defaults: new { controller = "Home", action = "DiffyChat" });
+
+            routes.MapRoute(
                 name: "UserChat",
-                url: "{id}/chat",
-                defaults: new { controller = "Home", action = "Chat" });
+                url: "{id}/deschat",
+                defaults: new { controller = "Home", action = "DesChat" });
 
             routes.MapRoute(
                 name: "UserPhoto",

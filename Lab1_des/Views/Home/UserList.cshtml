@@ -4,75 +4,32 @@
         <div class="chat-box-online-head">
             USERS (@Model.Count())
         </div>
-        <div class="panel-body chat-box-online">
+        <div class="panel-body chat-box-online" id="accordion">
             @{
-                int i = 0;
-                var parts = new[] { "left", "right" };
+                var i = 0;
             }
             @foreach (var user in Model)
             {
-                <a href="@Url.Action("Chat", "Home", new{id = user.Email})">
-                    <div class="chat-box-online-@parts[i++%2]">
-                        <img src="@Url.Action("Photo", "Home", new {email = user.Email})" alt="bootstrap Chat box user image" class="img-circle" />
-                        - @user.Name @user.Surname
-                        <br />
+                <div class="panel panel-default">
+                    <!-- Заголовок @i панели -->
+                    <div class="panel-heading chat-box-online-left">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-@i">
+                                <img src="@Url.Action("Photo", "Home", new {email = user.Email})" alt="bootstrap Chat box user image" class="img-circle"/>
+                                - @user.Name @user.Surname
+                            </a>
+                        </h4>
                     </div>
-                </a>
-                <hr class="hr-clas-low" />
+                    <div id="collapse-@i" class="panel-collapse collapse">
+                        <!-- Содержимое @i панели -->
+                        <div class="panel-body">
+                            @Html.Partial("_AvailableChats", user.Email)
+                        </div>
+                    </div>
+                </div>
+                i++;
             }
-            <!--
-            <div class="chat-box-online-right">
-                <img src="~/Content/assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                - Romin Royeelin
-                <br />
-                ( <small>Active from 10 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
-            <div class="chat-box-online-left">
-                <img src="~/Content/assets/img/user.png" alt="bootstrap Chat box user image" class="img-circle" />
-                - Justine Goliyad
-                <br />
-                ( <small>Active from 3 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
 
-            <div class="chat-box-online-right">
-                <img src="~/Content/assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                - Romin Royeelin
-                <br />
-                ( <small>Active from 10 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
-            <div class="chat-box-online-left">
-                <img src="~/Content/assets/img/user.png" alt="bootstrap Chat box user image" class="img-circle" />
-                - Justine Goliyad
-                <br />
-                ( <small>Active from 3 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
-
-            <div class="chat-box-online-right">
-                <img src="~/Content/assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                - Romin Royeelin
-                <br />
-                ( <small>Active from 10 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
-            <div class="chat-box-online-left">
-                <img src="~/Content/assets/img/user.png" alt="bootstrap Chat box user image" class="img-circle" />
-                - Justine Goliyad
-                <br />
-                ( <small>Active from 3 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />
-
-            <div class="chat-box-online-right">
-                <img src="~/Content/assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                - Romin Royeelin
-                <br />
-                ( <small>Active from 10 hours</small> )
-            </div>
-            <hr class="hr-clas-low" />-->
         </div>
 
     </div>

@@ -142,7 +142,6 @@ body {
 }
 
 .chat-box-online-left {
-    margin-left: 10px;
     text-align: left;
     color: #049E64;
 }
@@ -232,4 +231,12 @@ body {
 
 .bg-warning, .bg-danger {
     padding: 15px;
+}
+
+#accordion .panel-heading a {
+    font-size: 12px;
+}
+
+#accordion .panel-heading a:hover {
+    text-decoration: none;
 }

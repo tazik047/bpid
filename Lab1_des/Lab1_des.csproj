@@ -149,6 +149,8 @@
     <Content Include="Content\assets\js\bootstrap.js" />
     <Content Include="Content\assets\js\jquery-1.11.1.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\des-encrypt.js" />
+    <Content Include="Scripts\diffy-algorithm.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery.scrollTo.min.js" />
@@ -156,6 +158,8 @@
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\notifications.js" />
+    <Content Include="Scripts\rsa-encrypt.js" />
+    <Content Include="Scripts\simple-key-encrypt.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -164,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\BaseApiController.cs" />
+    <Compile Include="ApiControllers\KeyController.cs" />
     <Compile Include="ApiControllers\MessageController.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -183,6 +188,8 @@
     <Compile Include="Models\GoogleOauthViewModel.cs" />
     <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\NotificationUser.cs" />
+    <Compile Include="Models\RSAKeysViewModel.cs" />
+    <Compile Include="Models\SimpleKeyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -198,8 +205,12 @@
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Home\UserList.cshtml" />
-    <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Home\DesChat.cshtml" />
     <None Include="Properties\PublishProfiles\security-chat.pubxml" />
+    <Content Include="Views\Shared\_AvailableChats.cshtml" />
+    <Content Include="Views\Home\KeyChat.cshtml" />
+    <Content Include="Views\Home\DiffyChat.cshtml" />
+    <Content Include="Views\Home\RsaChat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

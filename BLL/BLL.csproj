@@ -65,11 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAuthorizationService.cs" />
+    <Compile Include="Abstract\IKeyService.cs" />
     <Compile Include="Abstract\IMessageService.cs" />
     <Compile Include="Abstract\IPushNotificationService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="ClaimTypeExtension.cs" />
     <Compile Include="Concrete\AuthorizationService.cs" />
+    <Compile Include="Concrete\KeyService.cs" />
     <Compile Include="Concrete\MessageService.cs" />
     <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Concrete\Utils\DataProtector.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Models\GoogleUser.cs" />
     <Compile Include="Models\NotificationDto.cs" />
     <Compile Include="Models\Payload.cs" />
+    <Compile Include="Models\RsaKeys.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

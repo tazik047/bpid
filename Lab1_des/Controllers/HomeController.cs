@@ -24,37 +24,48 @@ namespace Lab1_des.Controllers
             return View();
         }
 
-        public ActionResult Chat(string id)
+        public ActionResult DesChat(string id)
         {
-            var recipient = _userService.GetUserOrDefault(id);
-            if (recipient == null || id == CurrentUserEmail)
+            var room = GetChatRoom(id);
+            if (room == null)
             {
                 return RedirectToAction("Index");
             }
 
-            var messages = recipient.IncomingMessages.Where(m => m.FromId == CurrentUserEmail).ToList();
-            messages.AddRange(recipient.OutcomingMessages.Where(m => m.ToId == CurrentUserEmail));
-            messages = messages.OrderBy(m => m.Date).ToList();
-            var result = new MessageViewModel[messages.Count];
-            for (var i = 0; i < result.Length; i++)
+            return View(room);
+        }
+
+        public ActionResult KeyChat(string id)
+        {
+            var room = GetChatRoom(id);
+            if (room == null)
             {
-                result[i] = new MessageViewModel
-                {
-                    Date = messages[i].Date,
-                    IsForMe = messages[i].ToId == CurrentUserEmail,
-                    Sender = messages[i].From,
-                    Text = messages[i].Text
-                };
+                return RedirectToAction("Index");
             }
 
-            var res = new ChatRoom
-            {
-                Messages = result,
-                Recipient = recipient,
-                CurrentUser = _userService.GetUser(CurrentUserEmail)
-            };
+            return View(room);
+        }
 
-            return View(res);
+        public ActionResult RsaChat(string id)
+        {
+            var room = GetChatRoom(id);
+            if (room == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(room);
+        }
+
+        public ActionResult DiffyChat(string id)
+        {
+            var room = GetChatRoom(id);
+            if (room == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(room);
         }
 
         [HttpGet]
@@ -78,6 +89,37 @@ namespace Lab1_des.Controllers
             var users = _userService.GetUsers().Where(u => u.Email != CurrentUserEmail);
             
             return PartialView(users);
+        }
+
+        private ChatRoom GetChatRoom(string email)
+        {
+            var recipient = _userService.GetUserOrDefault(email);
+            if (recipient == null || email == CurrentUserEmail)
+            {
+                return null;
+            }
+
+            var messages = recipient.IncomingMessages.Where(m => m.FromId == CurrentUserEmail).ToList();
+            messages.AddRange(recipient.OutcomingMessages.Where(m => m.ToId == CurrentUserEmail));
+            messages = messages.OrderBy(m => m.Date).ToList();
+            var result = new MessageViewModel[messages.Count];
+            for (var i = 0; i < result.Length; i++)
+            {
+                result[i] = new MessageViewModel
+                {
+                    Date = messages[i].Date,
+                    IsForMe = messages[i].ToId == CurrentUserEmail,
+                    Sender = messages[i].From,
+                    Text = messages[i].Text
+                };
+            }
+
+            return new ChatRoom
+            {
+                Messages = result,
+                Recipient = recipient,
+                CurrentUser = _userService.GetUser(CurrentUserEmail)
+            };
         }
     }
 }

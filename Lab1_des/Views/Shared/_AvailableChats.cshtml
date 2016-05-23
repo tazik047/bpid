@@ -1,0 +1,7 @@
+﻿@model string
+<ul>
+    <li><a href="@Url.Action("DesChat","Home", new {id = Model})">Чат с DES шифрованием</a></li>
+    <li><a href="@Url.Action("KeyChat","Home", new {id = Model})">Со случайным ключом</a></li>
+    <li><a href="@Url.Action("RsaChat","Home", new {id = Model})">С использованием алгоритма RSA</a></li>
+    <li><a href="@Url.Action("DiffyChat","Home", new {id = Model})">С получением ключей по алгоритму Диффи-Хеллмана</a></li>
+</ul>
