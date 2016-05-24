@@ -39,5 +39,29 @@ namespace Lab1_des.ApiControllers
 
             return Ok(Mapper.Map<RSAKeysViewModel>(rsa));
         }
-    }
+
+		[HttpGet]
+		[Route("api/keys/hash")]
+		public IHttpActionResult GenerateHash(string text)
+		{
+			return Ok(Hash(text));
+		}
+
+		private uint Hash(string key)
+		{
+			uint hash = 0;
+			int i =0;
+			for (; i < key.Length; ++i)
+			{
+				hash += key[i];
+				hash += (hash << 10);
+				hash ^= (hash >> 6);
+			}
+			hash += (hash << 3);
+			hash ^= (hash >> 11);
+			hash += (hash << 15);
+
+			return hash;
+		}
+	}
 }
