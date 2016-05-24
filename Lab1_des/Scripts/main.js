@@ -93,6 +93,16 @@ window.arrayToStr = function (arr) {
 	return String.fromCharCode.apply(null, mas);
 };
 
+// x^y mod N
+window.modexp = function(x, y, n) {
+		if (y === 0) return 1;
+		var z = modexp(x, Math.floor(y / 2), n);
+		if (y % 2 == 0)
+			return (z * z) % n;
+		else
+			return (x * z * z) % n;
+	}
+
 document.renderMessage = function (templateSelector, message) {
 	var template = $(templateSelector).clone();
 	template.find('.text-body').text(message);

@@ -83,16 +83,6 @@
 		return toString(resText);
 	}
 
-	// x^y mod N
-	function modexp(x, y, n) {
-		if (y === 0) return 1;
-		var z = modexp(x, Math.floor(y / 2), n);
-		if (y % 2 == 0)
-			return (z*z) % n;
-		else
-			return (x*z*z) % n;
-	}
-
 	function toString(arr) {
 		var res = "";
 
