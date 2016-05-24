@@ -1,76 +1,91 @@
 ﻿@model Lab1_des.Models.ChatRoom
 @{
-    ViewBag.Title = "Чат";
+	ViewBag.Title = "Чат";
 }
 
 <div class="col-sm-8">
-    <div class="chat-box-div">
-        <input type="hidden" id="recipient-email" value="@Model.Recipient.Email" />
-        <div class="chat-box-head">
-            ВАШ ЧАТ c <i class="text-uppercase">@Model.Recipient.Name @Model.Recipient.Surname</i>
-        </div>
-        <div class="panel-body chat-box-main">
-            @if (!Model.Messages.Any())
-            {
-                <p id="empty-chat">Вы еще не отправляли этому пользователю сообщения</p>
-            }
-            else
-            {
-                foreach (var message in Model.Messages)
-                {
-                    <div class="chat-box-@(message.IsForMe?"left":"right") text-body" data-origin-text="@message.Text">
-                        @message.Text
-                    </div>
-                    <div class="chat-box-name-@(message.IsForMe?"left":"right")">
-                        <img src="@Url.Action("Photo", "Home", new {email = message.Sender.Email})" alt="bootstrap Chat box user image" class="img-circle" />
-                        - @message.Sender.Name @message.Sender.Surname <b>@(message.IsForMe ? "" : "(Вы)")</b>
-                    </div>
-                    <hr class="hr-clas" />
-                }
-            }
-        </div>
-        <div class="chat-box-footer">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Введите ваше сообщение..." id="message-body">
-                <span class="input-group-btn">
-                    <button class="btn btn-info" type="button" id="send-message">Отправить</button>
-                </span>
-            </div>
-            <br />
-            <br />
-            <p class="bg-danger invisible">Введите ваш секретный ключ!</p>
-            <br />
-            <div class="input-group">
-                <input type="text" id="des-key" placeholder="Введите ваш секретный ключ" class="form-control" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info" type="button" id="toggle-key">Показать/скрыть ключ</button>
-                </span>
-            </div>
-            <p class="bg-warning">Ключ должен содержать 7 символов (английские буквы или цифры).</p>
-        </div>
-    </div>
+	<div class="chat-box-div">
+		<input type="hidden" id="recipient-email" value="@Model.Recipient.Email" />
+		<div class="chat-box-head">
+			ВАШ ЧАТ c <i class="text-uppercase">@Model.Recipient.Name @Model.Recipient.Surname</i>
+		</div>
+		<div class="panel-body chat-box-main">
+			@if (!Model.Messages.Any())
+			{
+				<p id="empty-chat">Вы еще не отправляли этому пользователю сообщения</p>
+			}
+			else
+			{
+				foreach (var message in Model.Messages)
+				{
+					<div class="chat-box-@(message.IsForMe?"left":"right") text-body" data-origin-text="@message.Text">
+						@message.Text
+					</div>
+					<div class="chat-box-name-@(message.IsForMe?"left":"right")">
+						<img src="@Url.Action("Photo", "Home", new {email = message.Sender.Email})" alt="bootstrap Chat box user image" class="img-circle" />
+						- @message.Sender.Name @message.Sender.Surname <b>@(message.IsForMe ? "" : "(Вы)")</b>
+					</div>
+					<hr class="hr-clas" />
+				}
+			}
+		</div>
+		<div class="chat-box-footer">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Введите ваше сообщение..." id="message-body">
+				<span class="input-group-btn">
+					<button class="btn btn-info" type="button" id="send-message">Отправить</button>
+				</span>
+			</div>
+			<br />
+			<br />
+			<p class="bg-danger invisible">Введите ваш секретный(или публичный ключ, присланный собеседником) ключ и модуль!</p>
+			<br />
+			<div class="input-group">
+				<input type="text" id="secrete-rsa-key" placeholder="Введите ваш секретный ключ" class="form-control" />
+				<span class="input-group-btn">
+					<button class="btn btn-info hide-btn" type="button" data-hide-element-id="secrete-rsa-key">Показать/скрыть секретный ключ</button>
+				</span>
+			</div>
+			<div class="input-group">
+				<input type="text" id="public-rsa-key" placeholder="Введите ваш открытый ключ" class="form-control" />
+				<span class="input-group-btn">
+					<button class="btn btn-info hide-btn" type="button" data-hide-element-id="public-rsa-key">Показать/скрыть открытый ключ</button>
+				</span>
+			</div>
+			<div class="input-group">
+				<input type="text" id="module-rsa-key" placeholder="Введите модуль" class="form-control" />
+				<span class="input-group-btn">
+					<button class="btn btn-info hide-btn" type="button" data-hide-element-id="module-rsa-key">Показать/скрыть модуль</button>
+				</span>
+			</div>
+			<p>
+				<button class="btn btn-info" type="button" id="get-secrete-key">Получить ключ</button>
+				<button class="btn btn-info" type="button" id="send-public-key">Отправить открытый ключ собеседнику</button>
+			</p>
+		</div>
+	</div>
 </div>
 <div class="hidden">
-    <div id="my-message-template">
-        <div class="chat-box-right text-body">
-        </div>
-        <div class="chat-box-name-right">
-            <img src="@Url.Action("Photo", "Home", new {email = User.Identity.Name})" alt="bootstrap Chat box user image" class="img-circle" />
-            - @Model.CurrentUser.Name @Model.CurrentUser.Surname <b>(Вы)</b>
-        </div>
-        <hr class="hr-clas" />
-    </div>
-    <div id="recipient-message-template">
-        <div class="chat-box-left text-body">
-        </div>
-        <div class="chat-box-name-left">
-            <img src="@Url.Action("Photo", "Home", new {email = Model.Recipient.Email})" alt="bootstrap Chat box user image" class="img-circle" />
-            - @Model.Recipient.Name @Model.Recipient.Surname
-        </div>
-        <hr class="hr-clas" />
-    </div>
+	<div id="my-message-template">
+		<div class="chat-box-right text-body">
+		</div>
+		<div class="chat-box-name-right">
+			<img src="@Url.Action("Photo", "Home", new {email = User.Identity.Name})" alt="bootstrap Chat box user image" class="img-circle" />
+			- @Model.CurrentUser.Name @Model.CurrentUser.Surname <b>(Вы)</b>
+		</div>
+		<hr class="hr-clas" />
+	</div>
+	<div id="recipient-message-template">
+		<div class="chat-box-left text-body">
+		</div>
+		<div class="chat-box-name-left">
+			<img src="@Url.Action("Photo", "Home", new {email = Model.Recipient.Email})" alt="bootstrap Chat box user image" class="img-circle" />
+			- @Model.Recipient.Name @Model.Recipient.Surname
+		</div>
+		<hr class="hr-clas" />
+	</div>
 </div>
 
 @section scripts{
-    <script src="~/Scripts/main.js"></script>
+	<script src="~/Scripts/rsa-encrypt.js"></script>
 }
