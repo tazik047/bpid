@@ -39,12 +39,16 @@
 	function getKey() {
 		var your = +$('#your-key').val();
 		var other = +$('#other-key').val();
-		console.log(other * prepareKey(your));
+		console.log(prepareKey(your, other));
 
-		return other * prepareKey(your);
+		return prepareKey(your, other);
 	}
 
-	function prepareKey(key) {
+	function prepareKey(key, main) {
+		if (main) {
+			return modexp(main, key, 1987);
+		}
+
 		return modexp(3, key, 1987);
 	}
 
